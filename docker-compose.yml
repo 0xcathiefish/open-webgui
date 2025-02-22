@@ -1,0 +1,26 @@
+#version: '3.8'
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    networks:
+      - cycle
+    #ports:
+    #  - "9999:8080"
+    volumes:
+      - open-webui:/app/backend/data
+    # 可选：添加外部API配置（示例为DeepSeek）
+    environment:
+    #  - OPENAI_API_BASE_URL=https://api.deepseek.com/v1
+      - OPENAI_API_KEY=sk-your-key-here
+      - CORS_ALLOW_ORIGINS=*
+
+networks:
+  cycle:
+    #external: true
+    driver: bridge
+
+volumes:
+  open-webui:
